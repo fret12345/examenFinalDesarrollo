@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Financiera.Application/Financiera.Application.csproj" />
+  <Project Path="Financiera.Domain/Financiera.Domain.csproj" />
+  <Project Path="Financiera.Infrestructure/Financiera.Infrestructure.csproj" />
+  <Project Path="Financiera/Financiera.Api.csproj" />
+</Solution>

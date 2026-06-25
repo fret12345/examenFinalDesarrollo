@@ -1,0 +1,12 @@
+services:
+  # Servicio actual de Postgres
+  postgres:
+    image: postgres:16
+    container_name: postgres_dev
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: Alex2403
+      POSTGRES_DB: FinancieraDB
+    volumes:
+      - ./data_postgres:/var/lib/postgresql/data
