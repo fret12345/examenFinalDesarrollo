@@ -33,4 +33,4 @@ ENV ASPNETCORE_URLS=http://+:${PORT}
 EXPOSE 8080
 
 # Ejecutar la API
-ENTRYPOINT ["dotnet", "Ecommerce.Apiv.dll"]
+ENTRYPOINT ["dotnet", "Financiera.Apiv.dll"]
