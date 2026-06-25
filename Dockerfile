@@ -12,7 +12,7 @@ RUN dotnet restore "Financiera.slnx"
 
 # Publicar la API
 WORKDIR "/src/Financiera"
-RUN dotnet publish "Financiera/Financiera.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Financiera.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 # ===============================
 # RUNTIME
@@ -33,4 +33,4 @@ ENV ASPNETCORE_URLS=http://+:${PORT}
 EXPOSE 8080
 
 # Ejecutar la API
-ENTRYPOINT ["dotnet", "Financiera.Api.dll"]
+ENTRYPOINT ["dotnet", "Financiera.dll"]
