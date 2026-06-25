@@ -4,15 +4,15 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
-# Copiar todo el proyecto al contenedor
+# Copiar todo el proyecto
 COPY . .
 
-# Restaurar dependencias usando la solución
+# Restaurar dependencias
 RUN dotnet restore "Financiera.slnx"
 
-# CORRECCIÓN: Apuntar a la carpeta 'Financiera' que es la correcta
+# Publicar la API
 WORKDIR "/src/Financiera"
-RUN dotnet publish "Financiera.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Financiera/Financiera.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 # ===============================
 # RUNTIME
@@ -20,7 +20,7 @@ RUN dotnet publish "Financiera.csproj" -c Release -o /app/publish /p:UseAppHost=
 FROM mcr.microsoft.com/dotnet/aspnet:10.0
 WORKDIR /app
 
-# Librerías necesarias
+# Librerías necesarias (PostgreSQL / seguridad)
 RUN apt-get update && apt-get install -y libgssapi-krb5-2 && rm -rf /var/lib/apt/lists/*
 
 # Copiar la app publicada
@@ -29,8 +29,8 @@ COPY --from=build /app/publish .
 # Render usa el puerto dinámico
 ENV ASPNETCORE_URLS=http://+:${PORT}
 
-# Exponer puerto
+# Exponer puerto (referencial)
 EXPOSE 8080
 
-# CORRECCIÓN: Ejecutar el DLL correcto del proyecto
-ENTRYPOINT ["dotnet", "Financiera.dll"]
+# Ejecutar la API
+ENTRYPOINT ["dotnet", "Financiera.Api.dll"]
